@@ -1,5 +1,7 @@
 # e2b-linux-local
 
+中文说明见 [README.zh-CN.md](./README.zh-CN.md).
+
 This is a small single-host Linux deployer for running E2B on an Ubuntu bare-metal host.
 
 It covers two phases:
