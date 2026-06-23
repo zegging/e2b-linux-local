@@ -1,0 +1,6 @@
+*.sh text eol=lf
+*.service text eol=lf
+*.md text eol=lf
+Makefile text eol=lf
+*.env.example text eol=lf
+.gitignore text eol=lf

@@ -1,0 +1,19 @@
+[Unit]
+Description=E2B local Docker Compose infrastructure
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/e2b-linux-local.env
+Environment=PATH={{E2B_PATH}}
+WorkingDirectory={{E2B_ROOT}}
+ExecStart=/usr/bin/docker compose -f packages/local-dev/docker-compose.yaml up -d
+ExecStop=/usr/bin/docker compose -f packages/local-dev/docker-compose.yaml stop
+RemainAfterExit=yes
+TimeoutStartSec=300
+TimeoutStopSec=120
+
+[Install]
+WantedBy=multi-user.target

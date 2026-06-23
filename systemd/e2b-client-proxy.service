@@ -1,0 +1,21 @@
+[Unit]
+Description=E2B local client proxy
+Requires=e2b-api.service
+After=e2b-api.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/e2b-linux-local.env
+Environment=PATH={{E2B_PATH}}
+User={{E2B_USER}}
+Group={{E2B_GROUP}}
+WorkingDirectory={{E2B_ROOT}}
+ExecStart=/usr/bin/make -C packages/client-proxy run-local
+Restart=on-failure
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target

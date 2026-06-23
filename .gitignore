@@ -1,0 +1,10 @@
+*.log
+*.pid
+.env
+.env.*
+!.env.example
+tmp/
+logs/
+pids/
+.DS_Store
+Thumbs.db

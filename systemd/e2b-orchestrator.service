@@ -1,0 +1,23 @@
+[Unit]
+Description=E2B local orchestrator and template manager
+Requires=e2b-local-infra.service
+After=e2b-local-infra.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/e2b-linux-local.env
+Environment=PATH={{E2B_PATH}}
+WorkingDirectory={{E2B_ROOT}}
+ExecStartPre=/sbin/modprobe nbd nbds_max=64
+ExecStartPre=/sbin/sysctl -w vm.nr_hugepages=2048
+ExecStartPre=/sbin/sysctl -w net.ipv4.ip_forward=1
+ExecStartPre=-/sbin/sysctl -w vm.unprivileged_userfaultfd=1
+ExecStart=/usr/bin/make -C packages/orchestrator run-local
+Restart=on-failure
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target
